@@ -87,7 +87,7 @@ tests/resample-sndfile: libresample.a tests/resample-sndfile.c
 		libresample.a -lsndfile $(LIBS)
 
 clean:
-	rm -f $(TARGETS) $(OBJS)
+	rm -f $(TARGETS) $(OBJS) libresample.so
 
 distclean: clean
 	rm -f Makefile
