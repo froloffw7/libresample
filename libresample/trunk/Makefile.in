@@ -17,7 +17,11 @@ PROC?=$(shell uname -m)
 SONAME:=1.0
 DYNAMIC_LIBRARY:=libresample.so.$(SONAME)
 
+ifeq ($(OSARCH),Darwin)
+SOFLAGS:=-Wl -dynamiclib
+else
 SOFLAGS:=-Wl,-h$(DYNAMIC_LIBRARY)
+endif
 
 INSTALL_BASE:=/usr
 INSTALL_PREFIX:=$(DESTDIR)
@@ -32,7 +36,7 @@ else
  endif
 endif
 
-ifeq (${OSARCH},SunOS)
+ifneq (,$(findstring $(OSARCH), SunOS Darwin))
 LDCONFIG:= 
 LDCONFIG_FLAGS:= \# # Trick to comment out the period in the command below
 #INSTALL_PREFIX:=/opt/asterisk  # Uncomment out to install in standard Solaris location for 3rd party code
